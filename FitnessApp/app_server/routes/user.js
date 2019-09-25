@@ -4,5 +4,5 @@ const ctrlUser = require('../controllers/user')
 
 router.get('/', ctrlUser.index)
 router.get('/register', ctrlUser.register)
-router.post('', ctrlUser.index)
+router.post('', ctrlUser.checkRegisterData)
 module.exports = router;

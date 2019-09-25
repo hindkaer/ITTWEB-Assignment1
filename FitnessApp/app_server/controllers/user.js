@@ -10,13 +10,15 @@ module.exports.register = function (req, res) {
 };
 
 
-var checkPassword = function () {
-    if (document.getElementById('password').value ==
-        document.getElementById('confirm_password').value) {
-        document.getElementById('message').style.color = 'green';
-        document.getElementById('message').innerHTML = 'matching';
+module.exports.checkRegisterData = function (req, res) {
+    var username = req.body.username
+    var password = req.body.password;
+    var confirmPassword = req.body.confirm_password;
+
+    if (password == confirmPassword) {
+        // Push username and password to database and check if the username exists in the database
+        res.render('sign_in');
     } else {
-        document.getElementById('message').style.color = 'red';
-        document.getElementById('message').innerHTML = 'not matching';
+        res.render('register');
     }
-}
+};

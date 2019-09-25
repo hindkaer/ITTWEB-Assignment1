@@ -25,6 +25,7 @@
     <title>Register</title>
 </head>
 
+
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
@@ -52,14 +53,21 @@
                 <div class="col-md-8">
                     <div class="card">
                         <div class="card-header">Create a new user for the fitnessapp here!</div>
+                        <script type="text/javascript">
+                            function checkPassword() {
+                                if (document.getElementById('password').value !=
+                                    document.getElementById('confirm_password').value) {
+                                    alert("Passwords not matching!")
+                                }
+                            }
+                        </script>
                         <div class="card-body">
                             <form action="/" method="post">
                                 <div class="form-group row">
-                                    <label for="email_address" class="col-md-4 col-form-label text-md-right">E-Mail
-                                        Address</label>
+                                    <label for="username" class="col-md-4 col-form-label text-md-right">Username</label>
                                     <div class="col-md-6">
-                                        <input type="text" id="email_address" class="form-control" name="email-address"
-                                            required autofocus>
+                                        <input type="text" id="username" class="form-control" name="username" required
+                                            autofocus>
                                     </div>
                                 </div>
 
@@ -76,12 +84,12 @@
                                         Password</label>
                                     <div class="col-md-6">
                                         <input type="password" name="confirm_password" id="confirm_password"
-                                            class="form-control" onkeyup='checkPassword();' required />
+                                            class="form-control" required />
                                     </div>
                                 </div>
 
                                 <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-primary" onclick="checkPassword();">
                                         Register
                                     </button>
                                 </div>
