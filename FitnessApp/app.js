@@ -3,12 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-<<<<<<< HEAD
 var db = require('./app_server/models/db');
-=======
 const passport = require('passport');
 require('./config/passport');
->>>>>>> 354388284300b176f03d4f380fd14d2027757cd2
 
 var indexRouter = require('./app_server/routes/index');
 var userRouter = require('./app_server/routes/user');
