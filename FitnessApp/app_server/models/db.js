@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://admin:admin@fitnessmongo-3cmix.gcp.mongodb.net/test?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true });
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
     const collection = client.db("test").collection("devices");
     // perform actions on the collection object
@@ -29,6 +29,7 @@ const UserSchema = new Schema({
 
 const ExerciseSchema = new Schema({
     "id": { type: String, required: true, unique: true },
+    "name": { type: String, required: true },
     "description": { type: String, required: true },
     "sets": { type: Number, default: 0 },
     "repetitions": { type: Number, default: 0 }
@@ -36,6 +37,7 @@ const ExerciseSchema = new Schema({
 
 const WorkoutSchema = new Schema({
     "id": { type: String, required: true, unique: true },
+    "name": { type: String, required: true },
     "userid": { type: String, required: true },
     "exercises": { type: Array, default: null }
 });
