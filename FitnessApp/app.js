@@ -3,7 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+<<<<<<< HEAD
 var db = require('./app_server/models/db');
+=======
+const passport = require('passport');
+require('./config/passport');
+>>>>>>> 354388284300b176f03d4f380fd14d2027757cd2
 
 var indexRouter = require('./app_server/routes/index');
 var userRouter = require('./app_server/routes/user');
@@ -11,6 +16,9 @@ var workoutRouter = require('./app_server/routes/workout');
 var excerciseRouter = require('./app_server/routes/excercise');
 
 var app = express();
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(passport.initialize());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'app_server', 'views'));
@@ -22,7 +30,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.use('/', userRouter);
 app.use('/user', userRouter);
 app.use('/workout', workoutRouter);
 app.use('/excercise', excerciseRouter);
@@ -41,6 +49,17 @@ app.use(function (err, req, res, next) {
   // render the error page 
   res.status(err.status || 500);
   res.render('error');
+});
+
+passport.serializeUser(function (user, cb) {
+  cb(null, user._id);
+});
+
+passport.deserializeUser(function (id, cb) {
+  db.users.findById(id, function (err, user) {
+    if (err) { return cb(err); }
+    cb(null, user);
+  });
 });
 
 module.exports = app;
