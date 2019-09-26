@@ -32,7 +32,7 @@ var excerciseRouter = require('./app_server/routes/excercise');
 
 var app = express();
 
-app.use('/public', express.static('public'));
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 

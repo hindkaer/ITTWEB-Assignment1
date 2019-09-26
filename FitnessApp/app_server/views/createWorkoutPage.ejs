@@ -33,46 +33,69 @@
     </div>
 </nav>
 
-<div class="container" style="background-color: rgba(255 , 255, 255, 0.9); border-radius: 10px;">
-    <form class="well span8">
-        <div style="margin: 80" class="row">
-            <div class="span3">
-                <p>Exercise</p>
-                <input class="span3" type="text" name="exercise">
-
-                <p>Set</p>
-                <input class="span3" type="text" name="set">
-
-                <p>Reps/Time</p>
-                <input class="span3" type="text" name="repstime">
-            </div>
-
-
-
-
-            <div class="span5">
-                <p>Description</p>
-                <textarea class="input-xlarge span5" id="message" name="description" rows="5">
-        </textarea>
-            </div><button class="btn btn-primary pull-right" type="submit">Add exercise</button>
-
-            <select>
-                <% Exercises.forEach(exercise => { %>
-                <option value="#">
-                    <%= exercise.name %>
-                </option>
-                </br>
-
-                <% }); %>
-
-            </select>
-
-
-
-            <label>Workout Name</label>
-            <input class="span3" type="text" name="repstime">
-            <button class="btn btn-primary pull-right" type="submit">Create workout</button>
+<!-- Editable table -->
+<form action="#" method="post">
+    <div class="card">
+        <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Create your workout here!</h3>
+        <label for="workout" class="col-md-4 col-form-label text-md-right"> Workout Name</label>
+        <div class="col-md-6">
+            <input type="text" id="workoutname" class="form-control" name="workoutname" required>
         </div>
-</div>
+        <div class="card-body">
+            <div id="table" class="table-editable">
+                <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
+                            class="fas fa-plus fa-2x" aria-hidden="true"></i></a></span>
+                <table class="table table-bordered table-responsive-md table-striped text-center">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Exercise</th>
+                            <th class="text-center">Set</th>
+                            <th class="text-center">Reps/Time</th>
+                            <th class="text-center">Description</th>
+                            <!-- <th class="text-center">Remove</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% Exercises.forEach(exercise => { %>
+                        <tr>
+                            <td class="pt-3-half" contenteditable="false"><%= exercise.name %></td>
+                            <td class="pt-3-half" contenteditable="false"><%= exercise.repetitions %></td>
+                            <td class="pt-3-half" contenteditable="false"><%= exercise.sets %></td>
+                            <td class="pt-3-half" contenteditable="false"><%= exercise.description %></td>
+                            <!-- <td>
+                                <span class="table-remove"><button type="button"
+                                        class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                            </td> -->
+                        </tr>
+                        <% }); %>
+
+                        <tr>
+                            <td class="pt-3-half" contenteditable="false">
+                                <input type="text" name="exercise" required />
+                            </td>
+                            <td class="pt-3-half" contenteditable="false">
+                                <input type="text" name="repetitions" required />
+                            </td>
+                            <td class="pt-3-half" contenteditable="false">
+                                <input type="text" name="sets" required />
+                            </td>
+                            <td class="pt-3-half" contenteditable="false">
+                                <input type="text" name="description" required />
+                            </td>
+                            <!-- <td>
+                                    <span class="table-remove"><button type="button"
+                                            class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                </td> -->
+                        </tr>
+
+                    </tbody>
+                </table>
+                <button type="submit" name="createExercise" class="btn btn-default">
+                    Add exercise to workout
+                </button>
+            </div>
+        </div>
+    </div>
 </form>
-</div>
+
+<!-- Editable table -->
