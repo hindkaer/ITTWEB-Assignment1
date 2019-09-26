@@ -3,9 +3,9 @@ let Workout = require('../models/workout')
 
 module.exports.index = function (req, res) {
     // Get workouts from database
-    let workouts = [{ name: "Create new workout", userid: "test", exercises: [{ name: "1", repetitions: "1", sets: "1", description: "1" }] }]
 
-    res.render('welcomePage', { Workouts: workouts });
+
+    res.render('welcomePage', { Workouts: [] });
 };
 
 module.exports.create = function (req, res) {
@@ -16,10 +16,10 @@ module.exports.create = function (req, res) {
 
 module.exports.showWorkout = async function (req, res) {
     var workoutName = req.params.workoutname;
-    let tempWorkout
+    let tempWorkout = []
 
     await Workout.findOne({ 'name': workoutName }, 'exercises', function (err, workout) {
-        console.log("workout:", workout)
+        console.log("workout here", workout)
         if (err) {
             console.log(err)
         }
@@ -32,6 +32,7 @@ module.exports.showWorkout = async function (req, res) {
             })
         }
     })
+    console.log("tempWorkout", tempWorkout)
     res.render('createWorkoutPage', { Exercises: tempWorkout.exercises, Workoutname: workoutName });
 };
 
