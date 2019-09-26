@@ -48,16 +48,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <% Workouts.forEach(workout => { %>
-                    <a href="workout/<%= workout.name %>">
-                        <c:param name="workout" value="<%= workout%>">
-                            <%= workout.name %>
-                    </a>
-                    </br>
-
-                    <% }); %>
-
-
-                    <!-- <table style="clear: both" class="table table-bordered table-striped" id="user">
+                    <a href="workout/<%= workout.name %>" name="workout" workout=<%= workout %></a>> <%= workout.name %>
+                        </a> </br> <% }); %> <!-- <table style="clear: both" class="table table-bordered table-striped"
+                        id="user">
                         <tbody>
                             <tr>
                                 <td width="35%">Simple text field</td>
@@ -89,7 +82,7 @@
                                         class="editable editable-click">Active</a></td>
                             </tr>
                         </tbody>
-                    </table> -->
+                        </table> -->
                 </div>
             </div>
         </div>

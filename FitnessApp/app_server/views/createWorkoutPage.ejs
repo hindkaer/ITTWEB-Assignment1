@@ -41,7 +41,7 @@
 </nav>
 
 <!-- Editable table -->
-<form action="#" method="get">
+<form action="#" method="post">
     <div class="card">
         <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Workout</h3>
         <div class="card-body">
@@ -55,22 +55,41 @@
                             <th class="text-center">Set</th>
                             <th class="text-center">Reps/Time</th>
                             <th class="text-center">Description</th>
-                            <th class="text-center">Remove</th>
+                            <!-- <th class="text-center">Remove</th> -->
                         </tr>
                     </thead>
                     <tbody>
                         <% Exercises.forEach(exercise => { %>
                         <tr>
-                            <td class="pt-3-half" contenteditable="true"><%= exercise.name %></td>
-                            <td class="pt-3-half" contenteditable="true"><%= exercise.repetitions %></td>
-                            <td class="pt-3-half" contenteditable="true"><%= exercise.sets %></td>
-                            <td class="pt-3-half" contenteditable="true"><%= exercise.description %></td>
-                            <td>
-                                <span class="table-remove"><button type="button" onclick=""
+                            <td class="pt-3-half" contenteditable="false"><%= exercise.name %></td>
+                            <td class="pt-3-half" contenteditable="false"><%= exercise.repetitions %></td>
+                            <td class="pt-3-half" contenteditable="false"><%= exercise.sets %></td>
+                            <td class="pt-3-half" contenteditable="false"><%= exercise.description %></td>
+                            <!-- <td>
+                                <span class="table-remove"><button type="button"
                                         class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                            </td>
+                            </td> -->
                         </tr>
                         <% }); %>
+
+                        <tr>
+                            <td class="pt-3-half" contenteditable="false">
+                                <input type="text" name="exercise" />
+                            </td>
+                            <td class="pt-3-half" contenteditable="false">
+                                <input type="text" name="repetitions" />
+                            </td>
+                            <td class="pt-3-half" contenteditable="false">
+                                <input type="text" name="sets" />
+                            </td>
+                            <td class="pt-3-half" contenteditable="false">
+                                <input type="text" name="description" />
+                            </td>
+                            <!-- <td>
+                                    <span class="table-remove"><button type="button"
+                                            class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+                                </td> -->
+                        </tr>
 
                     </tbody>
                 </table>

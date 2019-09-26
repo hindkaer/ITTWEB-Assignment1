@@ -1,3 +1,4 @@
+let exercises = [];
 
 module.exports.index = function (req, res) {
     // Get workouts from database
@@ -8,21 +9,32 @@ module.exports.index = function (req, res) {
 
 module.exports.create = function (req, res) {
     // Push et tomt workout objekt op på databasen
-    let exercises = []
+    exercises = []
     res.render('createWorkoutPage', { Exercises: exercises });
 };
 
 module.exports.showWorkout = function (req, res) {
     var workoutId = req.params.id
 
-    res.send("Workout:" + req.params);
-    console.log("req.params:", req.params);
+    console.log("workoutId:", workoutId);
+    // Find workoutId og smid workout.exercises med i render
+
+    res.render('createWorkoutPage', { Exercises: exercises });
 };
 
 module.exports.createExerciseRow = function (req, res) {
     var workoutId = req.params.id
-    res.send("Workout:" + req.params.id);
-    console.log("req.params:", req.params.id);
+    // byt dette ud med databasen
+
+    exercises.push({
+        name: req.body.exercise, sets: req.body.sets, repetitions: req.body.repetitions,
+        description: req.body.description
+    });
+
+    res.render('createWorkoutPage', { Exercises: exercises });
+
+
+
     //find workout på databasen ud fra workOutId
 
     // workout.push(exercise:[{name: "", repetitions: "", sets: "", description:""}])
