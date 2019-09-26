@@ -1,6 +1,6 @@
 body {
     width: 99%;
-    background-image: url(/public/assets/register-background-frame.png);
+    background-image: url(/public/assets/workout-background.png);
     background-repeat: no-repeat;
 
 }
@@ -32,8 +32,12 @@ div {
 
 .nav-item
 {
-    color: white;
-    background-color:  rgb(230, 230, 0)
+    color:  rgb(230, 230, 0);
 }
+
+.custom-toggler.navbar-toggler {
+    border-color: rgb(230,230,0);
+}
+
 
 
