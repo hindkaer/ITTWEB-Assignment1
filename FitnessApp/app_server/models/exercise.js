@@ -8,4 +8,4 @@ const ExerciseSchema = new Schema({
     "repetitions": { type: Number, default: 0 }
 });
 
-var Exercise = module.exports = mongoose.model('User', ExerciseSchema);
+var Exercise = module.exports = mongoose.model('Exercise', ExerciseSchema);

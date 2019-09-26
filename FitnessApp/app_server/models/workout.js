@@ -8,4 +8,4 @@ const WorkoutSchema = new Schema({
     "exercises": { type: Array, default: null }
 });
 
-var User = module.exports = mongoose.model('User', UserSchema);
+var Workout = module.exports = mongoose.model('Workout', WorkoutSchema);

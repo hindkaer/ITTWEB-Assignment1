@@ -1,8 +1,9 @@
 let exercises = [];
+let Workout = require('../models/workout')
 
 module.exports.index = function (req, res) {
     // Get workouts from database
-    let workouts = [{ name: "workout1", userid: "test" }, { name: "workout2", userid: "test" }, { name: "workout3", userid: "test" }]
+    let workouts = [{ name: "Create new workout", userid: "test", exercises: [{ name: "1", repetitions: "1", sets: "1", description: "1" }] }]
 
     res.render('welcomePage', { Workouts: workouts });
 };
@@ -14,17 +15,21 @@ module.exports.create = function (req, res) {
 };
 
 module.exports.showWorkout = function (req, res) {
-    var workoutId = req.params.id
+    //var workoutId = req.params.id
+    let workout = { name: "workout1", userid: "test", exercises: [{ name: "1", repetitions: "1", sets: "1", description: "1" }] }
+    // Workout.find({ name: workoutId }, function (err, Workout) {
 
-    console.log("workoutId:", workoutId);
+    // })
+    // console.log("workoutId:", workoutId);
     // Find workoutId og smid workout.exercises med i render
 
-    res.render('createWorkoutPage', { Exercises: exercises });
+    res.render('createWorkoutPage', { Exercises: workout.exercises });
 };
 
 module.exports.createExerciseRow = function (req, res) {
     var workoutId = req.params.id
     // byt dette ud med databasen
+
 
     exercises.push({
         name: req.body.exercise, sets: req.body.sets, repetitions: req.body.repetitions,
