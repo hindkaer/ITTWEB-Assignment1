@@ -5,5 +5,7 @@ const ctrlWorkout = require('../controllers/workout')
 
 router.get('/', ctrlWorkout.index)
 router.get('/create', ctrlWorkout.create)
+router.get('/:id', ctrlWorkout.showWorkout)
+
 
 module.exports = router;

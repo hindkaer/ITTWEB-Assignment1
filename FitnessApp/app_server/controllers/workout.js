@@ -12,3 +12,8 @@ module.exports.create = function (req, res) {
     res.render('createWorkoutPage', { Exercises: exercises });
 };
 
+module.exports.showWorkout = function (req, res) {
+    res.send("Workout:" + req.params);
+    console.log("req.params:", req.params);
+};
+

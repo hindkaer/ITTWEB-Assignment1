@@ -39,7 +39,7 @@ module.exports.checkLoginData = function (req, res) {
     let workouts = [{ name: "workout1", userid: "test" }, { name: "workout2", userid: "test" }, { name: "workout3", userid: "test" }]
 
     if (true) {     // check in database if the input username and password, matches with a user on the database.
-        // res.render('welcomePage', Workouts = workouts);
+        res.send("Wrong password! Please go back and try again.")
     } else {
         res.render('sign_in');
     }

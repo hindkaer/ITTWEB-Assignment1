@@ -48,8 +48,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <% Workouts.forEach(workout => { %>
-                    <a href="#">
-                        <%= workout.name %>
+                    <a href="workout/<%= workout.name %>">
+                        <c:param name="workout" value="<%= workout%>">
+                            <%= workout.name %>
                     </a>
                     </br>
 
