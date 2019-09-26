@@ -53,7 +53,7 @@
                     <div class="card">
                         <div class="card-header">Sign in</div>
                         <div class="card-body">
-                            <form action="auth" method="post">
+                            <form action="/workout" method="post">
                                 <div class="form-group row">
                                     <label for="username" class="col-md-4 col-form-label text-md-right">Username</label>
                                     <div class="col-md-6">
@@ -68,6 +68,8 @@
                                         <input type="password" id="password" class="form-control" name="password"
                                             required>
                                     </div>
+                                    <strong name="wrongpassword" id="wrongpassword" style="color: red"></strong>
+
                                 </div>
 
                                 <div class="col-md-6 offset-md-4">

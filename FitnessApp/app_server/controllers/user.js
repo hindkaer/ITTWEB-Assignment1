@@ -30,3 +30,18 @@ module.exports.checkRegisterData = function (req, res) {
         res.render('register');
     }
 };
+
+module.exports.checkLoginData = function (req, res) {
+    var username = req.body.username
+    var password = req.body.password
+
+    // get data from database
+    let workouts = [{ name: "workout1", userid: "test" }, { name: "workout2", userid: "test" }, { name: "workout3", userid: "test" }]
+
+    if (true) {     // check in database if the input username and password, matches with a user on the database.
+        // res.render('welcomePage', Workouts = workouts);
+    } else {
+        res.render('sign_in');
+    }
+
+}
