@@ -43,7 +43,11 @@
 <!-- Editable table -->
 <form action="#" method="post">
     <div class="card">
-        <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Workout</h3>
+        <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Create your workout here!</h3>
+        <label for="workout" class="col-md-4 col-form-label text-md-right"> Workout Name</label>
+        <div class="col-md-6">
+            <input type="text" id="workoutname" class="form-control" name="workoutname" required>
+        </div>
         <div class="card-body">
             <div id="table" class="table-editable">
                 <span class="table-add float-right mb-3 mr-2"><a href="#!" class="text-success"><i
@@ -74,16 +78,16 @@
 
                         <tr>
                             <td class="pt-3-half" contenteditable="false">
-                                <input type="text" name="exercise" />
+                                <input type="text" name="exercise" required />
                             </td>
                             <td class="pt-3-half" contenteditable="false">
-                                <input type="text" name="repetitions" />
+                                <input type="text" name="repetitions" required />
                             </td>
                             <td class="pt-3-half" contenteditable="false">
-                                <input type="text" name="sets" />
+                                <input type="text" name="sets" required />
                             </td>
                             <td class="pt-3-half" contenteditable="false">
-                                <input type="text" name="description" />
+                                <input type="text" name="description" required />
                             </td>
                             <!-- <td>
                                     <span class="table-remove"><button type="button"
