@@ -81,9 +81,9 @@ module.exports.checkLoginData = async function (req, res) {
             console.log(err)
         }
         else {
-            console.log(LoginUser)
+            console.log(LoginUser.id)
             if (LoginUser != null && LoginUser.password == password) {
-                Workout.find({}, function (err, WorkoutData) {
+                Workout.find({ 'userid': LoginUser.id }, function (err, WorkoutData) {
                     if (err) {
 
                     }
