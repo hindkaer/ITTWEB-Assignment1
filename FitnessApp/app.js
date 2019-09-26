@@ -3,16 +3,35 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var db = require('./app_server/models/db');
 const passport = require('passport');
 require('./config/passport');
 
-var indexRouter = require('./app_server/routes/index');
+// Mongoose & mongodb
+const mongoose = require('mongoose');
+var uri = "mongodb+srv://admin:admin@fitnessmongo-3cmix.gcp.mongodb.net/FitnessApp?retryWrites=true&w=majority"
+mongoose.connect(uri,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
+
+mongoose.connection.on('connected', () => {
+  console.log(`Mongoose connected to ${uri}`);
+});
+mongoose.connection.on('error', err => {
+  console.log('Mongoose connection error:', err);
+});
+mongoose.connection.on('disconnected', () => {
+  console.log('Mongoose disconnected');
+});
+
+
 var userRouter = require('./app_server/routes/user');
 var workoutRouter = require('./app_server/routes/workout');
 var excerciseRouter = require('./app_server/routes/excercise');
 
 var app = express();
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
