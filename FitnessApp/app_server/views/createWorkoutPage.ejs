@@ -46,7 +46,12 @@
         <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Create your workout here!</h3>
         <label for="workout" class="col-md-4 col-form-label text-md-right"> Workout Name</label>
         <div class="col-md-6">
-            <input type="text" id="workoutname" class="form-control" name="workoutname" required>
+            <input type="text" id="workoutname" class="form-control" name="workoutname" required
+                <% if (typeof Workoutname != 'undefined') { %> value="<%= Workoutname  %>">
+            <%} else { %>
+            value="">
+            <% } %>
+
         </div>
         <div class="card-body">
             <div id="table" class="table-editable">
