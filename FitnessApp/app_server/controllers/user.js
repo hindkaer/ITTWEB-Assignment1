@@ -103,7 +103,7 @@ module.exports.checkLoginData = async function (req, res) {
 
 
     if (true) {     // check in database if the input username and password, matches with a user on the database.
-        // res.render('welcomePage', Workouts = workouts);
+        res.send("Wrong password! Please go back and try again.")
     } else {
         res.render('sign_in');
     }
