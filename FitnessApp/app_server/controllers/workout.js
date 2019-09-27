@@ -3,12 +3,12 @@ let User = require('../models/user')
 
 module.exports.index = async function (req, res) {
     // Get workouts from database
-    await User.findById({ id: req.session.passport.user }, function (err, user) {
+    await User.findById({ _id: req.session.passport.user }, function (err, user) {
         if (err) {
             console.log(err)
         }
         if (user) {
-            Workout.find({ userid: user.id.toString() }, function (err, workouts) {
+            Workout.find({ userid: user.id }, function (err, workouts) {
                 if (err) {
                     console.log(err)
                 }
@@ -99,16 +99,29 @@ module.exports.createExerciseRow = async function (req, res) {
 };
 
 module.exports.removeWorkout = async function (req, res) {
-    var workoutName = req.body.workoutname
+    var workoutName = req.params.workoutname
+    console.log(req.params)
+
     await Workout.deleteOne({ name: workoutName }, function (err, workout) {
         if (err) {
             console.log(err)
         }
-    });
+    })
 
-    //Find workout based on user and render welcome page
+    await User.findById({ _id: req.session.passport.user }, function (err, user) {
+        if (err) {
+            console.log(err)
+        }
+        if (user) {
+            Workout.find({ userid: user.id }, function (err, workouts) {
+                if (err) {
+                    console.log(err)
+                }
+                else {
+                    res.render('welcomePage', { Workouts: workouts });
+                }
+            })
+        }
 
-
-
-    //res.render('welcomePage', { Workouts:;!:";#!:_";#!:;"#!"!#:;!":;" });
+    })
 };
