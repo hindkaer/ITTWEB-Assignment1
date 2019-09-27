@@ -4,7 +4,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const passport = require('passport');
-require('./config/passport');
+const session = require('express-session');
+const flash = require('connect-flash')
+
+require('./app_server/config/passport');
+
+// Passport config
+require('./app_server/config/passport')(passport)
+
 
 // Mongoose & mongodb
 const mongoose = require('mongoose');
@@ -33,6 +40,8 @@ var excerciseRouter = require('./app_server/routes/excercise');
 
 var app = express();
 
+
+
 app.use('/public', express.static('public'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
@@ -46,6 +55,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Express Session 
+app.use(session({
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true
+}))
+
+//passport middleware 
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', userRouter);
 app.use('/user', userRouter);
