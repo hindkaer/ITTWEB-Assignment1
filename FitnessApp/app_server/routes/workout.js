@@ -5,8 +5,9 @@ const ctrlWorkout = require('../controllers/workout')
 
 router.get('/', ctrlWorkout.index)
 router.get('/create', ctrlWorkout.create)
+router.post('/:workoutname', ctrlWorkout.createExerciseRow)
 router.get('/:workoutname', ctrlWorkout.showWorkout)
-router.post('/create', ctrlWorkout.createExerciseRow)
+
 
 
 
