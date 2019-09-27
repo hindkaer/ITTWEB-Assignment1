@@ -33,7 +33,10 @@
     </div>
 </nav>
 
+
+
 <!-- Editable table -->
+
 <form action="" method="post">
     <div class="card">
         <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Create your workout here!</h3>
@@ -67,30 +70,24 @@
                             <td class="pt-3-half" contenteditable="false"><%= exercise.repetitions %></td>
                             <td class="pt-3-half" contenteditable="false"><%= exercise.sets %></td>
                             <td class="pt-3-half" contenteditable="false"><%= exercise.description %></td>
-                            <!-- <td>
-                                <span class="table-remove"><button type="button"
-                                        class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                            </td> -->
+
                         </tr>
                         <% }); %>
 
                         <tr>
-                            <td class="pt-3-half" contenteditable="false">
-                                <input type="text" name="exercise" required />
+                            <td class="pt-3-half" contenteditable=" false">
+                                <input type="text" value="Exercise.." name="exercise" required />
                             </td>
                             <td class="pt-3-half" contenteditable="false">
-                                <input type="text" name="repetitions" required />
+                                <input type="text" value="Reps.." name="repetitions" required />
                             </td>
                             <td class="pt-3-half" contenteditable="false">
-                                <input type="text" name="sets" required />
+                                <input type="text" value="Sets.." name="sets" required />
                             </td>
                             <td class="pt-3-half" contenteditable="false">
-                                <input type="text" name="description" required />
+                                <input type="text" value="Descrip.." name="description" required />
                             </td>
-                            <!-- <td>
-                                    <span class="table-remove"><button type="button"
-                                            class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-                                </td> -->
+
                         </tr>
 
                     </tbody>
@@ -98,9 +95,11 @@
                 <button type="submit" name="createExercise" class="btn btn-default">
                     Add exercise to workout
                 </button>
+
             </div>
         </div>
     </div>
 </form>
+
 
 <!-- Editable table -->

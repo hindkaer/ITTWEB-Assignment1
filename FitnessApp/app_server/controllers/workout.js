@@ -2,6 +2,7 @@ let Workout = require('../models/workout')
 
 module.exports.index = function (req, res) {
     // Get workouts from database
+    
 
     res.render('welcomePage', { Workouts: [] });
 };
@@ -82,13 +83,17 @@ module.exports.createExerciseRow = async function (req, res) {
     }
 };
 
-module.exports.removeExerciseRow = function (req, res) {
-    var workoutId = req.params.id
+module.exports.removeWorkout = async function (req, res) {
+    var workoutName = req.body.workoutname
+    await Workout.deleteOne({ name: workoutName }, function (err, workout) {
+        if (err) {
+            console.log(err)
+        }
+    });
 
-    //find workout på databasen ud fra workOutId
+    //Find workout based on user and render welcome page
 
-    // workout.remove(exercise:[{name: "", repetitions: "", sets: "", description:""}])
 
-    //render med ny workout med fjernede exercise
-    //res.render('createWorkoutPage', { Exercises: exercises });
+
+    //res.render('welcomePage', { Workouts:;!:";#!:_";#!:;"#!"!#:;!":;" });
 };
