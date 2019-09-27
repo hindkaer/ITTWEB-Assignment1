@@ -1,10 +1,26 @@
 let Workout = require('../models/workout')
+let User = require('../models/user')
 
-module.exports.index = function (req, res) {
+module.exports.index = async function (req, res) {
     // Get workouts from database
-    
-
-    res.render('welcomePage', { Workouts: [] });
+    await User.findById({ id: req.session.passport.user }, function (err, user) {
+        if (err) {
+            console.log(err)
+        }
+        if (user) {
+            Workout.find({ userid: user.id.toString() }, function (err, workouts) {
+                if (err) {
+                    console.log(err)
+                }
+                else {
+                    res.render('welcomePage', { Workouts: workouts });
+                }
+            })
+        }
+        else {
+            res.render('welcomePage', { Workouts: [] })
+        }
+    })
 };
 
 module.exports.create = function (req, res) {
@@ -41,9 +57,8 @@ module.exports.createExerciseRow = async function (req, res) {
         }
         if (workout == null) {
             let workout = new Workout();
-            workout.id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
             workout.name = req.body.workoutname
-            workout.userid = "b3tayytvjrawtm2flshzmr"
+            workout.userid = req.session.passport.user
             workout.exercises = [{
                 name: req.body.exercise, sets: req.body.sets, repetitions: req.body.repetitions,
                 description: req.body.description
