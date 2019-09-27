@@ -4,42 +4,37 @@ let Workout = require('../models/workout')
 module.exports.index = function (req, res) {
     // Get workouts from database
 
-
     res.render('welcomePage', { Workouts: [] });
 };
 
 module.exports.create = function (req, res) {
-    // Push et tomt workout objekt op på databasen
     exercises = []
     res.render('createWorkoutPage', { Exercises: exercises });
 };
 
 module.exports.showWorkout = async function (req, res) {
     var workoutName = req.params.workoutname;
-    let tempWorkout = []
 
-    await Workout.findOne({ 'name': workoutName }, 'exercises', function (err, workout) {
+    await Workout.findOne({ name: workoutName }, 'exercises', function (err, workout) {
         console.log("workout here", workout)
         if (err) {
             console.log(err)
         }
         if (workout != null) {
-            tempWorkout = workout
             workout.save(function (err) {
                 if (err) {
                     console.log(err)
                 }
             })
+            res.render('createWorkoutPage', { Exercises: workout.exercises, Workoutname: workoutName });
         }
     })
-    console.log("tempWorkout", tempWorkout)
-    res.render('createWorkoutPage', { Exercises: tempWorkout.exercises, Workoutname: workoutName });
 };
 
 module.exports.createExerciseRow = async function (req, res) {
     var workoutName = req.body.workoutname
 
-    await Workout.findOne({ 'name': workoutName }, 'name', function (err, workout) {
+    await Workout.findOne({ name: workoutName }, 'name', function (err, workout) {
         console.log("workout:", workout)
         if (err) {
             console.log(err)
@@ -58,26 +53,21 @@ module.exports.createExerciseRow = async function (req, res) {
                     console.log(err)
                 }
             })
+            res.render('createWorkoutPage', { Exercises: workout.exercises, Workoutname: workoutName });
+
         } else { //TODO FIX ME !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            // workout.exercises.push({
-            //     name: req.body.exercise, sets: req.body.sets, repetitions: req.body.repetitions,
-            //     description: req.body.description
-            // });
+            console.log("gets here!");
+
+            // Workout.findOneAndUpdate({ name: workoutName }, {
+            //     exercises: [... {
+            //         name: req.body.exercise, sets: req.body.sets, repetitions: req.body.repetitions,
+            //         description: req.body.description
+            //     }]
+            // })
+            res.render('createWorkoutPage', { Exercises: workout.exercises, Workoutname: workoutName });
+
         }
     })
-
-
-
-    res.render('createWorkoutPage', { Exercises: exercises });
-
-
-
-    //find workout på databasen ud fra workOutId
-
-    // workout.push(exercise:[{name: "", repetitions: "", sets: "", description:""}])
-
-    //render med ny workout med tilføjede exercise
-    //res.render('createWorkoutPage', { Exercises: exercises });
 };
 
 module.exports.removeExerciseRow = function (req, res) {
