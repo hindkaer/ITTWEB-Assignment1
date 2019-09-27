@@ -1,4 +1,3 @@
-let exercises = [];
 let Workout = require('../models/workout')
 
 module.exports.index = function (req, res) {
@@ -33,9 +32,9 @@ module.exports.showWorkout = async function (req, res) {
 
 module.exports.createExerciseRow = async function (req, res) {
     var workoutName = req.body.workoutname
+    let existingWorkout = null;
 
-    await Workout.findOne({ name: workoutName }, 'name', function (err, workout) {
-        console.log("workout:", workout)
+    await Workout.findOne({ name: workoutName }, function (err, workout) {
         if (err) {
             console.log(err)
         }
@@ -55,19 +54,32 @@ module.exports.createExerciseRow = async function (req, res) {
             })
             res.render('createWorkoutPage', { Exercises: workout.exercises, Workoutname: workoutName });
 
-        } else { //TODO FIX ME !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            console.log("gets here!");
+        } else {
 
-            // Workout.findOneAndUpdate({ name: workoutName }, {
-            //     exercises: [... {
-            //         name: req.body.exercise, sets: req.body.sets, repetitions: req.body.repetitions,
-            //         description: req.body.description
-            //     }]
-            // })
-            res.render('createWorkoutPage', { Exercises: workout.exercises, Workoutname: workoutName });
-
+            existingWorkout = workout;
         }
     })
+
+    if (existingWorkout != null) {
+        Workout.findOneAndUpdate({ name: workoutName }, {
+            $set: {
+                name: workoutName
+            },
+            $push: {
+                exercises: {
+                    name: req.body.exercise, sets: req.body.sets, repetitions: req.body.repetitions,
+                    description: req.body.description
+                }
+            }
+        }, { new: true }, (err, existing_workout) => {
+            if (err) {
+                console.log("Something wrong when updating data!");
+            }
+            res.render('createWorkoutPage', { Exercises: existing_workout.exercises, Workoutname: workoutName });
+        }
+        )
+
+    }
 };
 
 module.exports.removeExerciseRow = function (req, res) {
