@@ -1,5 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
+var jwt = require('jsonwebtoken');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -72,6 +73,54 @@ app.use('/user', userRouter);
 app.use('/workout', workoutRouter);
 app.use('/excercise', excerciseRouter);
 
+app.get('/testJWT', (req, res) => {
+  res.json({
+    message: 'Welcome'
+  });
+});
+
+app.get('/testJWT/get', verifyToken, (req, res) => {
+  jwt.verify(req.token, 'hemmelig kode', (err, authData) => {
+    if (err) {
+      res.sendStatus(403)
+    } else {
+      res.json({
+        message: 'Welcome',
+        authData
+      });
+    }
+  });
+});
+
+
+//
+app.post('/testJWT/post', (req, res) => {
+
+  const user = {
+    id: 1,
+    username: 'tobias',
+    email: 'tobias@gmail.com'
+  }
+  jwt.sign({ user: user }, 'hemmelig kode', { expiresIn: '1h' }, (err, token) => {
+    res.json({
+      token: token
+    });
+  });
+});
+
+function verifyToken(req, res, next) {
+  //Get auth header value
+  const bearerHeader = req.headers['authorization'];
+  if (typeof bearerHeader !== 'undefined') {
+    const bearer = bearerHeader.split(' ');
+    const bearerToken = bearer[1];
+    req.token = bearerToken;
+    next();
+  }
+  else {
+    res.sendStatus(403);
+  }
+}
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
