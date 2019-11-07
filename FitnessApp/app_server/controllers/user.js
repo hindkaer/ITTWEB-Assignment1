@@ -70,7 +70,7 @@ module.exports.checkRegisterData = async function (req, res) {
                     newUser.save()
                         .then(user => {
                             res.set('token', tokenForRes)
-                            res.render('sign_in')
+                            res.redirect('sign_in')
                         })
                         .catch(err => {
                             console.log(err)

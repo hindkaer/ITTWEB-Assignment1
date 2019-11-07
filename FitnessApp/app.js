@@ -6,10 +6,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const passport = require('passport');
 const session = require('express-session');
-const flash = require('connect-flash')
-
-const verify = require('./app_server/config/jwt')
-
 
 require('./app_server/config/passport');
 
@@ -72,41 +68,6 @@ app.use('/', userRouter);
 app.use('/user', userRouter);
 app.use('/workout', workoutRouter);
 app.use('/excercise', excerciseRouter);
-
-
-/// JWT
-app.get('/testJWT', (req, res) => {
-  res.json({
-    message: 'Welcome'
-  });
-});
-
-/// JWT
-app.get('/testJWT/get', verify.verifyToken, (req, res) => {
-  jwt.verify(req.token, 'joeymoemusic', (err, authData) => {
-    if (err) {
-      res.sendStatus(403)
-    } else {
-      res.json({
-        message: 'Welcome',
-        authData
-      });
-    }
-  });
-});
-
-/// JWT
-app.post('/testJWT/post', (req, res) => {
-
-  const user = "5dc280ba4175980017cecb0b"
-
-  jwt.sign({ user: user }, 'joeymoemusic', { expiresIn: '1h' }, (err, token) => {
-    res.json({
-      token: token
-    });
-  });
-});
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
