@@ -41,7 +41,7 @@ module.exports.getSingle = function (req, res, next) {
             console.log(err)
         }
         else {
-            res.json({ Workouts: workouts });
+            res.json({ Workouts: workouts, error : false });
         }
     })
 };
@@ -51,7 +51,7 @@ module.exports.getAll = function (req, res, next) {
             console.log(err)
         }
         else {
-            res.json({ Workouts: workouts });
+            res.json({ Workouts: workouts, error : false });
         }
     })
 };
