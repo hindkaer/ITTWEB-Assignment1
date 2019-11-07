@@ -2,6 +2,7 @@ let User = require('../models/user');
 let Workout = require('../models/workout');
 const bcrypt = require('bcryptjs');
 const passport = require('passport')
+var jwt = require('jsonwebtoken');
 
 
 module.exports.index = function (req, res) {
@@ -15,6 +16,7 @@ module.exports.test = function (req, res) {
         res.send(User)
     })
 };
+
 module.exports.checkRegisterData = async function (req, res) {
     const { username, password, confirm_password } = req.body
     let errors = [];
@@ -53,6 +55,13 @@ module.exports.checkRegisterData = async function (req, res) {
                 //Hash  password
                 bcrypt.genSalt(10, (err, salt) => bcrypt.hash(newUser.password, salt, (err, hash) => {
                     if (err) throw err;
+
+                    //sign user 
+                    jwt.sign({ user: newUser.username }, 'joeymoemusic', { expiresIn: '1h' }, (err, token) => {
+                        res.json({
+                            token: token
+                        });
+                    });
 
                     //Set password to hashed 
                     newUser.password = hash;

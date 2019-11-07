@@ -8,6 +8,9 @@ const passport = require('passport');
 const session = require('express-session');
 const flash = require('connect-flash')
 
+const verify = require('./app_server/config/jwt')
+
+
 require('./app_server/config/passport');
 
 // Passport config
@@ -34,14 +37,11 @@ mongoose.connection.on('disconnected', () => {
   console.log('Mongoose disconnected');
 });
 
-
 var userRouter = require('./app_server/routes/user');
 var workoutRouter = require('./app_server/routes/workout');
 var excerciseRouter = require('./app_server/routes/excercise');
 
 var app = express();
-
-
 
 app.use('/public', express.static('public'));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -73,14 +73,17 @@ app.use('/user', userRouter);
 app.use('/workout', workoutRouter);
 app.use('/excercise', excerciseRouter);
 
+
+/// JWT
 app.get('/testJWT', (req, res) => {
   res.json({
     message: 'Welcome'
   });
 });
 
-app.get('/testJWT/get', verifyToken, (req, res) => {
-  jwt.verify(req.token, 'hemmelig kode', (err, authData) => {
+/// JWT
+app.get('/testJWT/get', verify.verifyToken, (req, res) => {
+  jwt.verify(req.token, 'joeymoemusic', (err, authData) => {
     if (err) {
       res.sendStatus(403)
     } else {
@@ -92,35 +95,18 @@ app.get('/testJWT/get', verifyToken, (req, res) => {
   });
 });
 
-
-//
+/// JWT
 app.post('/testJWT/post', (req, res) => {
 
-  const user = {
-    id: 1,
-    username: 'tobias',
-    email: 'tobias@gmail.com'
-  }
-  jwt.sign({ user: user }, 'hemmelig kode', { expiresIn: '1h' }, (err, token) => {
+  const user = "5dc280ba4175980017cecb0b"
+
+  jwt.sign({ user: user }, 'joeymoemusic', { expiresIn: '1h' }, (err, token) => {
     res.json({
       token: token
     });
   });
 });
 
-function verifyToken(req, res, next) {
-  //Get auth header value
-  const bearerHeader = req.headers['authorization'];
-  if (typeof bearerHeader !== 'undefined') {
-    const bearer = bearerHeader.split(' ');
-    const bearerToken = bearer[1];
-    req.token = bearerToken;
-    next();
-  }
-  else {
-    res.sendStatus(403);
-  }
-}
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

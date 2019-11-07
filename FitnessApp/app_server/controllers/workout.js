@@ -28,6 +28,8 @@ module.exports.create = function (req, res) {
     res.render('createWorkoutPage', { Exercises: exercises });
 };
 
+
+
 module.exports.showWorkout = async function (req, res) {
     var workoutName = req.params.workoutname;
 

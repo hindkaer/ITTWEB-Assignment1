@@ -4,7 +4,10 @@ module.exports = {
             next();
         }
         else {
-            res.redirect('/')
+            res.json({
+                message: 'Unauthorized',
+            });
+            //res.redirect('/')
         }
     }
 }
