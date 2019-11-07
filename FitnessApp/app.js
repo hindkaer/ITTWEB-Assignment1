@@ -36,6 +36,9 @@ mongoose.connection.on('disconnected', () => {
 var userRouter = require('./app_server/routes/user');
 var workoutRouter = require('./app_server/routes/workout');
 var excerciseRouter = require('./app_server/routes/excercise');
+var userApiRouter = require('./app_server/routes/api/user')
+var exerciseApiRouter = require('./app_server/routes/api/excercise')
+var workoutApiRouter = require('./app_server/routes/api/workout')
 
 var app = express();
 
@@ -68,6 +71,11 @@ app.use('/', userRouter);
 app.use('/user', userRouter);
 app.use('/workout', workoutRouter);
 app.use('/excercise', excerciseRouter);
+
+//Api routes
+app.use('/api/user', userApiRouter)
+//app.use('/api/exercise', exerciseApiRouter)
+//app.use('/api/workout', workoutApiRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

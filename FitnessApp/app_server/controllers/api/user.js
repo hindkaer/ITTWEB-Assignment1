@@ -1,23 +1,21 @@
-let User = require('../models/user');
-let Workout = require('../models/workout');
-const bcrypt = require('bcryptjs');
 const passport = require('passport')
 var jwt = require('jsonwebtoken');
+let User = require('../../models/user');
 
+module.exports.login = function (req, res, next) {
+    const { username, password } = req.body
+    passport.authenticate('local', function (err, user, info) {
 
-module.exports.index = function (req, res) {
-    res.render('sign_in');
-};
-module.exports.register = function (req, res) {
-    res.render('register');
-};
-module.exports.test = function (req, res) {
-    User.find({}, function (err, User) {
-        res.send(User)
-    })
+        if (err) { return next(err); }
+        if (!user) { return res.json({ "msg": "no user" }); }
+
+        jwt.sign({ user: username }, 'joeymoemusic', { expiresIn: '1h' }, (err, token) => {
+            res.json({ token, token })
+        });
+    })(req, res, next);
 };
 
-module.exports.checkRegisterData = async function (req, res) {
+module.exports.register = function (req, res, next) {
     const { username, password, confirm_password } = req.body
     let errors = [];
 
@@ -36,14 +34,14 @@ module.exports.checkRegisterData = async function (req, res) {
     }
 
     if (errors.length > 0) {
-        res.render('register', { errors, username, password, confirm_password })
+        res.json(errors)
     } else {
         // Validation passed 
         User.findOne({ username: username }).then(user => {
             if (user) {
                 //user exsist
                 errors.push({ msg: 'Username is already in use' })
-                res.render('register', { errors, username, password, confirm_password })
+                res.json(errors)
             } else {
                 // New user
 
@@ -51,7 +49,6 @@ module.exports.checkRegisterData = async function (req, res) {
                     username,
                     password
                 });
-                console.log(newUser);
                 //Hash  password
                 bcrypt.genSalt(10, (err, salt) => bcrypt.hash(newUser.password, salt, (err, hash) => {
                     if (err) throw err;
@@ -69,8 +66,7 @@ module.exports.checkRegisterData = async function (req, res) {
                     // save user 
                     newUser.save()
                         .then(user => {
-                            res.set('token', tokenForRes)
-                            res.redirect('workout')
+                            res.json({ token: tokenForRes, })
                         })
                         .catch(err => {
                             console.log(err)
@@ -80,33 +76,5 @@ module.exports.checkRegisterData = async function (req, res) {
 
             }
         })
-
     }
-
-
 };
-module.exports.checkLoginData = async function (req, res, next) {
-
-    passport.authenticate('local', function (err, user, info) {
-
-        if (err) { return next(err); }
-        if (!user) { return res.redirect('/'); }
-
-
-        let userName = user.username;
-        jwt.sign({ user: userName }, 'joeymoemusic', { expiresIn: '1h' }, (err, token) => {
-            res.set('token', token)
-            res.redirect('/workout')
-        });
-
-        // res.set('token', tokenForRes)
-        // res.render('welcomePage')
-
-    })(req, res, next);
-
-}
-
-module.exports.logout = function (req, res) {
-    req.logout();
-    res.redirect('/');
-}
