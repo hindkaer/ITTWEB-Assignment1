@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const passport = require('passport');
 const session = require('express-session');
+var cors = require('cors')
 
 require('./app_server/config/passport');
 
@@ -41,6 +42,7 @@ var exerciseApiRouter = require('./app_server/routes/api/excercise')
 var workoutApiRouter = require('./app_server/routes/api/workout')
 
 var app = express();
+app.use(cors());
 
 app.use('/public', express.static('public'));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -62,6 +64,8 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }))
+
+var cors = require('cors')
 
 //passport middleware 
 app.use(passport.initialize());
