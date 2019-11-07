@@ -9,6 +9,5 @@ router.post('/', controller.checkRegisterData)
 router.get('/test', controller.test)
 router.post('/signin', controller.checkLoginData)
 router.get('/logout', controller.logout)
-router.get('/jwt', controller.jwtTest)
 
 module.exports = router;

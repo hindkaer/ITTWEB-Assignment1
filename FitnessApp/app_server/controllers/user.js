@@ -56,11 +56,12 @@ module.exports.checkRegisterData = async function (req, res) {
                 bcrypt.genSalt(10, (err, salt) => bcrypt.hash(newUser.password, salt, (err, hash) => {
                     if (err) throw err;
 
+
+                    let tokenForRes;
+
                     //sign user 
                     jwt.sign({ user: newUser.username }, 'joeymoemusic', { expiresIn: '1h' }, (err, token) => {
-                        res.json({
-                            token: token
-                        });
+                        tokenForRes = token;
                     });
 
                     //Set password to hashed 
@@ -68,6 +69,7 @@ module.exports.checkRegisterData = async function (req, res) {
                     // save user 
                     newUser.save()
                         .then(user => {
+                            res.set('token', tokenForRes)
                             res.render('sign_in')
                         })
                         .catch(err => {
@@ -84,10 +86,26 @@ module.exports.checkRegisterData = async function (req, res) {
 
 };
 module.exports.checkLoginData = async function (req, res, next) {
-    passport.authenticate('local', {
-        successRedirect: '/workout',
-        failureRedirect: '/'
+
+    passport.authenticate('local', function (err, user, info) {
+
+        if (err) { return next(err); }
+        if (!user) { return res.redirect('/'); }
+
+        let tokenForRes;
+
+        let userName = user.username;
+        jwt.sign({ user: userName }, 'joeymoemusic', { expiresIn: '1h' }, (err, token) => {
+            tokenForRes = token;
+            res.set('token', tokenForRes)
+            res.render('welcomePage')
+        });
+
+        // res.set('token', tokenForRes)
+        // res.render('welcomePage')
+
     })(req, res, next);
+
 }
 
 module.exports.logout = function (req, res) {

@@ -1,6 +1,5 @@
 
 
-
 module.exports = {
 
     verifyToken: function (req, res, next) {
@@ -16,9 +15,5 @@ module.exports = {
             res.sendStatus(403);
         }
     }
-
-
-
-
 
 }

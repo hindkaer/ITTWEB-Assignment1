@@ -1,8 +1,6 @@
 const LocalStrategy = require('passport-local').Strategy;
 const mongoose = require('mongoose')
 const bcrypt = require('bcryptjs')
-const JwtStrategy = require('passport-jwt').Strategy
-const { ExtractJwt } = require('passport-jwt')
 
 // Load user 
 const User = require('../models/user')
