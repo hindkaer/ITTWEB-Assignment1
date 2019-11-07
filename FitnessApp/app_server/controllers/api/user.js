@@ -6,8 +6,10 @@ module.exports.login = function (req, res, next) {
     const { username, password } = req.body
     passport.authenticate('local', function (err, user, info) {
 
-        if (err) { return next(err); }
-        if (!user) { return res.json({ "msg": "no user" }); }
+        if (err) {
+            res.json({ error: true, errormessage: err });
+        }
+        if (!user) { return res.json({ error: true, errormessage: "No user" }); }
 
         jwt.sign({ user: username }, 'joeymoemusic', { expiresIn: '1h' }, (err, token) => {
             res.json({ token, token })
@@ -34,14 +36,14 @@ module.exports.register = function (req, res, next) {
     }
 
     if (errors.length > 0) {
-        res.json(errors)
+        res.json({ error: true, errormessage: errors })
     } else {
         // Validation passed 
         User.findOne({ username: username }).then(user => {
             if (user) {
                 //user exsist
                 errors.push({ msg: 'Username is already in use' })
-                res.json(errors)
+                res.json({ error: true, errormessage: errors })
             } else {
                 // New user
 
@@ -66,7 +68,7 @@ module.exports.register = function (req, res, next) {
                     // save user 
                     newUser.save()
                         .then(user => {
-                            res.json({ token: tokenForRes, })
+                            res.json({ error: false, token: tokenForRes, })
                         })
                         .catch(err => {
                             console.log(err)

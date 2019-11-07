@@ -75,7 +75,7 @@ app.use('/excercise', excerciseRouter);
 //Api routes
 app.use('/api/user', userApiRouter)
 //app.use('/api/exercise', exerciseApiRouter)
-//app.use('/api/workout', workoutApiRouter)
+app.use('/api/workout', workoutApiRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

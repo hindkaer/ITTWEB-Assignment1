@@ -1,10 +1,14 @@
-// var express = require('express');
-// var router = express.Router();
+var express = require('express');
+var router = express.Router();
 
-// const ctrlExcercise = require('../controllers/excercise')
+const controller = require('../../controllers/api/workout')
+//Base path localhost:3000/api/workout/..
+//router.get('/', controller.create)
+//router.get('/', controller.delete)
+router.get('/all', controller.getAll)
+router.get('/user', controller.getAllForUser)
+router.get('/', controller.getSingle)
+//router.get('/', controller.update)
 
-// router.get('/', ctrlExcercise.index)
 
-
-
-// module.exports = router;
+module.exports = router;
