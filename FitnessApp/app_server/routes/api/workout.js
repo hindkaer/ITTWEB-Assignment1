@@ -8,9 +8,7 @@ router.post('/', verify.verifyToken, controller.create)
 router.delete('/delete', verify.verifyToken, controller.delete)
 router.get('/all', controller.getAll)
 router.get('/user', verify.verifyToken, controller.getAllForUser)
-router.get('/', controller.getSingle)
-//router.get('/', controller.update)
-
+router.get('/', verify.verifyToken, controller.getSingle)
 
 module.exports = router;
 
