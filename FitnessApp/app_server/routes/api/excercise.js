@@ -1,10 +1,12 @@
-// var express = require('express');
-// var router = express.Router();
+var express = require('express');
+var router = express.Router();
+var verify = require('../../config/jwt')
 
-// const ctrlExcercise = require('../controllers/excercise')
+const controller = require('../../controllers/api/excercise')
+//Base path localhost:3000/api/exercise/..
+router.get('/', controller.get)
+router.post('/', verify.verifyToken, controller.create)
+router.delete('/', verify.verifyToken, controller.delete)
 
-// router.get('/', ctrlExcercise.index)
 
-
-
-// module.exports = router;
+module.exports = router;

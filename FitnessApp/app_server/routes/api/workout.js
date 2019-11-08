@@ -11,5 +11,3 @@ router.get('/user', verify.verifyToken, controller.getAllForUser)
 router.get('/', verify.verifyToken, controller.getSingle)
 
 module.exports = router;
-
-;
