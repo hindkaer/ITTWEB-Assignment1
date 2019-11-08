@@ -38,14 +38,6 @@ module.exports.delete = function (req, res, next) {
                         res.json({ error: true, errormessage: "User does not own the workout" })
                 }
             })
-            //            Workout.findByIdAndDelete(workoutID, function (err, workout) {
-            //                if (err) {
-            //                    console.log(err)
-            //
-            //                } else {
-            //                    res.json({ Workout: "workout removed", error: false })
-            //                }
-            //            })
         }
     })
 };
@@ -71,11 +63,6 @@ module.exports.getAllForUser = async function (req, res, next) {
         }
     })
 };
-
-
-
-
-
 module.exports.getSingle = function (req, res, next) {
     const { workoutID } = req.body
     Workout.findById(workoutID, function (err, workouts) {
@@ -96,10 +83,5 @@ module.exports.getAll = function (req, res, next) {
             res.json({ Workouts: workouts, error: false });
         }
     })
-};
-
-module.exports.update = function (req, res, next) {
-    const { username, password, confirm_password } = req.body
-
 };
 
