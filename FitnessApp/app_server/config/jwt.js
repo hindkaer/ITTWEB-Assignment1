@@ -1,3 +1,4 @@
+var jwt = require('jsonwebtoken');
 
 
 module.exports = {
@@ -8,8 +9,19 @@ module.exports = {
         if (typeof bearerHeader !== 'undefined') {
             const bearer = bearerHeader.split(' ');
             const bearerToken = bearer[1];
-            req.token = bearerToken;
-            next();
+            //req.token = bearerToken;
+            jwt.verify(bearerToken, 'joeymoemusic', async (err, authData) => {
+                if (err) {
+                    res.sendStatus(403)
+                } else {
+
+                    //req.authData = authData
+                    //next()
+                    req.authData = authData
+                    return next()
+
+                }
+            })
         }
         else {
             res.sendStatus(403);
