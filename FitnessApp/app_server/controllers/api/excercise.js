@@ -10,8 +10,7 @@ module.exports.get = function (req, res, next) {
         } else {
             res.json({ error: false, exercise })
         }
-    }).populate('exercises', "sets", "repetitions", "_id", "5dc57db0eae61347146a1a1c",
-        "name", "Exercise", "description", "qweasd")
+    })
 };
 module.exports.create = function (req, res, next) {
     let username = req.authData.user

@@ -72,7 +72,7 @@ module.exports.getSingle = function (req, res, next) {
         else {
             res.json({ Workouts: workouts, error: false });
         }
-    })
+    }).populate({ path: 'exercise' })
 };
 module.exports.getAll = function (req, res, next) {
     Workout.find({}, function (err, workouts) {
