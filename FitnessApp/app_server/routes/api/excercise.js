@@ -6,7 +6,6 @@ const controller = require('../../controllers/api/excercise')
 //Base path localhost:3000/api/exercise/..
 router.get('/', controller.get)
 router.post('/', verify.verifyToken, controller.create)
-router.delete('/', verify.verifyToken, controller.delete)
 
 
 module.exports = router;

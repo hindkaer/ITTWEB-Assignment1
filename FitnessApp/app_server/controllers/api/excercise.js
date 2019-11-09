@@ -28,11 +28,4 @@ module.exports.create = function (req, res, next) {
     })
 
 };
-module.exports.delete = function (req, res, next) {
-    let username = req.authData.user
-    const { exerciseID } = req.body
-
-    User.find
-
-};
 
