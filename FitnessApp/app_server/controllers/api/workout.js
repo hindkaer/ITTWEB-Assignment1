@@ -5,7 +5,7 @@ module.exports.create = function (req, res, next) {
     let username = req.authData.user
     let { Workoutname } = req.body
     User.findOne({ username: username }, function (err, user) {
-        if (err) {
+        if (!user || err) {
             res.json({ error: true, errormessage: "user not found" })
         } else {
             let newWorkout = new Workout();
