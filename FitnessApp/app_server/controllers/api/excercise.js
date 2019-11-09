@@ -18,7 +18,7 @@ module.exports.create = function (req, res, next) {
 
     let newExercise = new Exercise();
     newExercise.name = name;
-    newExercise.set = set
+    newExercise.sets = set
     newExercise.repetitions = repetitions
     newExercise.description = description
     newExercise.save();
